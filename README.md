@@ -20,8 +20,8 @@ A simple command-line tool to ping a single IP address or a range of IP addresse
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/cuongitl/pingit.git
-   cd pingit
+   git clone https://github.com/cuongitl/pyNetworkPinger.git
+   cd pyNetworkPinger
    ```
 
 2. Install the required libraries:
