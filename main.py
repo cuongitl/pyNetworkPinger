@@ -21,11 +21,10 @@ with open("data.yml") as file:
 
 
 def to_excel(subnet, suffix, data):
-	cleaned_ip = subnet.split("/")[0]
 	df = pd.DataFrame(data, columns=['ip'])
 	# Specify the Excel file and sheet name
-	excel_file = f'result/{cleaned_ip}.xlsx'
-	sheet_name = f'{cleaned_ip}_{suffix}'
+	excel_file = f'results/{subnet.split("/")[0]}.xlsx'
+	sheet_name = f'{subnet.split("/")[0]}_{suffix}'
 	try:
 		# Write the DataFrame to the specified sheet, replacing it if it exists
 		with pd.ExcelWriter(excel_file, engine='openpyxl', mode='a', if_sheet_exists='replace') as writer:

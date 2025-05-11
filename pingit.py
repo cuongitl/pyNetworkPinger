@@ -11,6 +11,43 @@ from ping3 import ping, errors
 from tqdm import tqdm
 import sys
 import time
+import os
+from datetime import datetime
+
+result_dir = f"{os.getcwd()}/results"
+if not os.path.exists(result_dir):
+	os.makedirs(result_dir)
+
+
+def generate_filename(prefix):
+	"""
+	Generates a filename with the current date in the format YYYYMMDD.
+
+	Returns:
+	- str: The generated filename.
+	"""
+	current_date = datetime.now().strftime("%Y%m%d")
+	return f"{prefix}_{current_date}.txt"
+
+
+def write_to_file(filename, content):
+	"""
+	Writes the specified content to a file.
+	If the file exists, it appends the content; if not, it creates a new file.
+
+	Parameters:
+	- filename: str - The name of the file to write to.
+	- content: str - The content to write to the file.
+	"""
+	file_path = f"results/{filename}"
+	# Check if the file exists
+	file_mode = 'a' if os.path.exists(file_path) else 'w'
+	
+	try:
+		with open(file_path, file_mode) as file:
+			file.write(str(content))
+	except Exception as e:
+		print(f"An error occurred while writing to the file: {e}")
 
 
 def ping_ip(ip, timeout=3, size=32):
@@ -107,16 +144,37 @@ def cmd(subnet):
 	ips_alive, ips_unreachable = check_alive_ips(subnet)
 	print("=" * 50)
 	indentation = "    "
+	cleaned_ip = str(subnet.split("/")[0])
 	if len(ips_alive) >= 1:
-		print(f"Alive IPs: {len(ips_alive)}")
+		filename = generate_filename(f"{cleaned_ip}_alive")
+		msg = f"\nAlive IPs: {len(ips_alive)}"
+		print(msg)
+		current_datime = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+		write_to_file(filename, f"\n{current_datime}")
+		write_to_file(filename, msg)
 		for ip in ips_alive:
-			print(f"{indentation}Alive IP: {ip}")
-		print("=" * 50)
+			msg = f"\n{indentation}Alive IP: {ip}"
+			print(msg)
+			write_to_file(filename, msg)
+		msg = "\n"
+		msg += "=" * 50
+		print(msg)
+		write_to_file(filename, msg)
 	if len(ips_unreachable) >= 1:
-		print(f"Unreachable IPs: {len(ips_unreachable)}")
+		filename = generate_filename(f"{cleaned_ip}_unreachable")
+		msg = f"\nUnreachable IPs: {len(ips_unreachable)}"
+		print(msg)
+		current_datime = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+		write_to_file(filename, f"\n{current_datime}")
+		write_to_file(filename, msg)
 		for ip in ips_unreachable:
-			print(f"{indentation}Unreachable IP: {ip}")
-		print("=" * 50)
+			msg = f"\n{indentation}Unreachable IP: {ip}"
+			print(msg)
+			write_to_file(filename, msg)
+		msg = "\n"
+		msg += "=" * 50
+		print(msg)
+		write_to_file(filename, msg)
 
 
 def howto():
