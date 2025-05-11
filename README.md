@@ -1,4 +1,5 @@
-# Ping it  - Network Pinger
+# Network Pinger - Ping it
+
 
 A simple command-line tool to ping a single IP address or a range of IP addresses to check their availability.
 
@@ -31,7 +32,8 @@ A simple command-line tool to ping a single IP address or a range of IP addresse
 
 ## Usage
 
-### Ping a Single IP Address
+### Quick mode 
+#### Ping a Single IP Address
 
 To ping a single IP address, run the following command:
 
@@ -41,7 +43,7 @@ python pingit.py <IP_ADDRESS>
 
 Replace `<IP_ADDRESS>` with the actual IP address you want to ping.
 
-### Ping a Range of IP Addresses
+#### Ping a Range of IP Addresses
 
 To ping a range of IP addresses, use the following command:
 
@@ -51,7 +53,7 @@ python pingit.py <subnet>
 
 Replace `<subnet>` with the IP addresses of the range you want to ping.
 
-### Example
+#### Example
 
 To ping a single IP address:
 
@@ -64,6 +66,12 @@ To ping a range of IP addresses from `192.168.1.1/24`
 ```bash
 python pingit.py 192.168.1.0/24
 ```
+### Advanced mode
+
+- Read IPs(subnet) from `data.yml`
+- Export the result to excel.
+
+Please refer to the `main.py` file for more information.
 
 ## Contributing
 
